@@ -10,6 +10,6 @@ import { SkillService } from "./skill.service";
     controllers: [SkillController],
     providers: [SkillService],
 })
-export class postModule {}
+export class SkillModule {}
 
 

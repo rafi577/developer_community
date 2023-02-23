@@ -1,12 +1,22 @@
+import { Developer, DeveloperSchema } from 'src/Model/developer.schema';
 import { DeveloperService } from './developer.service';
 import { DeveloperController } from './developer.controller';
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 
 
 @Module({
-    // imports: [MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }])],
+    imports: [
+        PassportModule,
+        JwtModule.register({
+          secret: 'jwtConstants.secret',
+          signOptions: { expiresIn: '60s' },
+        }), 
+        MongooseModule.forFeature([{ name: Developer.name, schema: DeveloperSchema }])
+    ],
     controllers: [DeveloperController],
     providers: [DeveloperService]
 })

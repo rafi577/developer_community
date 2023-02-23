@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, ValidationPipe } from "@nestjs/common";
 import { CreateDeveloperDto } from "./dto/create.developer.dto";
 import { DeveloperService } from "./developer.service";
+import { LoginDeveloperDto } from "./dto/login.developer.dto";
 
 
 @Controller('developer')
@@ -8,21 +9,14 @@ export class DeveloperController {
 
     constructor(private readonly developerService : DeveloperService) {}
 
-    @Post()
-    create(@Body() createDeveloperDto: CreateDeveloperDto){
-        return this.developerService.create(createDeveloperDto);
+    @Post('/signup')
+    async signup(@Body(new ValidationPipe()) createDeveloperDto: CreateDeveloperDto): Promise<CreateDeveloperDto> {
+        return await this.developerService.signup(createDeveloperDto);
     }
     
-    @Get()
-    findAll() {
-     return this.developerService.findAll();
+    @Get('/login')
+    async login(@Body() loginDeveloperDto : LoginDeveloperDto): Promise<any>  {
+     return await this.developerService.login(loginDeveloperDto);
     }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.developerService.findOne(+id);
-    }
-
-
 
 }

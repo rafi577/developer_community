@@ -2,11 +2,7 @@ import { IsNotEmpty, IsString, MinLength, } from "class-validator";
 
 
 
-export class CreateDeveloperDto{
-    @IsString()
-    @IsNotEmpty()
-    phone : string;
-
+export class LoginDeveloperDto{
     @IsString()
     @IsNotEmpty()
     username: string;
