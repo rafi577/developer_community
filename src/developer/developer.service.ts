@@ -16,15 +16,17 @@ export class DeveloperService{
     ){}
 
     async signup(createDeveloperDto: CreateDeveloperDto): Promise<CreateDeveloperDto> {
-        const {phone,username,password} =createDeveloperDto;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const data = {
-            phone,
-            username,
-            password : hashedPassword
-        }
-        const createdDeveloper = await this.createDeveloperModel.create(data);
-        return createdDeveloper.save();
+        
+            const {phone,username,password} =createDeveloperDto;
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const data = {
+                phone,
+                username,
+                password : hashedPassword
+            }
+            const createdDeveloper = await this.createDeveloperModel.create(data);
+            return createdDeveloper.save();
+        
     }
     
     async login(loginDeveloperDto : LoginDeveloperDto): Promise<any>{
