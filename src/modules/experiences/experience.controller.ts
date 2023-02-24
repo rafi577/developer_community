@@ -7,19 +7,19 @@ import { UpdateExperienceDto } from './dto/update.experience.dto';
 
 
 
-@Controller('developer')
+@Controller('experience')
 export class ExperienceController {
 
     constructor(private readonly experienceService : ExperienceService) {}
 
-    @Post()
-    create(@Body() createExperienceDto: CreateExperienceDto){
-        return this.experienceService.create(createExperienceDto);
+    @Post(':id')
+    async create(@Body() createExperienceDto: CreateExperienceDto,@Param('id') id : string):Promise<CreateExperienceDto>{
+        return this.experienceService.create(createExperienceDto,id);
     }
     
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateExperienceDto: UpdateExperienceDto) {
-        return this.experienceService.update(+id, updateExperienceDto);
+    async update(@Param('id') id: string, @Body() updateExperienceDto: UpdateExperienceDto):Promise<UpdateExperienceDto> {
+        return await this.experienceService.update(+id, updateExperienceDto);
     }
 
 

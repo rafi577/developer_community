@@ -1,15 +1,39 @@
+import { UpdateExperienceDto } from './dto/update.experience.dto';
+import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from "@nestjs/common";
 import { CreateExperienceDto } from "./dto/create.experience.dto";
+import { Experience, ExperienceDocument } from 'src/Model/experience.schema';
+import { Model } from 'mongoose';
 
 
 
 @Injectable()
 export class ExperienceService {
-    create(createExperieanceDto : CreateExperienceDto){
-        return 'this is to add experience';
+
+    constructor(@InjectModel(Experience.name) private readonly experienceModel:Model<ExperienceDocument>){}
+
+    async create(createExperienceDto : CreateExperienceDto,id:string):Promise<CreateExperienceDto> {
+        const {title,start_time,end_time, description} = createExperienceDto;
+        const data = {
+            title,
+            start_time,
+            end_time,
+            description,
+            devId : id
+        }
+        const experienceData = this.experienceModel.create(data);
+        return createExperienceDto;
     }
 
-    update(id:number,experienceDto : CreateExperienceDto){
-        return `This action updates a #${id} experience`;
+    async update(id:number,updateExperienceDto : UpdateExperienceDto):Promise<UpdateExperienceDto> {
+        const {title,start_time,end_time, description} = updateExperienceDto;
+        const data = {
+            title,
+            start_time,
+            end_time,
+            description
+        }
+        const experienceData = await this.experienceModel.updateOne({id},data);
+        return data;
     }
 }

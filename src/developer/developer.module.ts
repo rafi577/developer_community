@@ -13,7 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
         PassportModule, 
         JwtModule.register({
           secret: 'jwtConstants.secret',
-          signOptions: { expiresIn: '60s' },
+          signOptions: { expiresIn: '3d'},
         }), 
         MongooseModule.forFeature([{ name: Developer.name, schema: DeveloperSchema }])
     ],
