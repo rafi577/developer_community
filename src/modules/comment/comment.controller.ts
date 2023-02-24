@@ -8,9 +8,9 @@ export class CommentController {
 
     constructor(private readonly developerService : CommentService) {}
 
-    @Post()
-    create(@Body() createCommentDto: CreateCommentDto){
-        return this.developerService.create(createCommentDto);
+    @Post(':id')
+    async create(@Body() createCommentDto: CreateCommentDto, @Param('id') id:string):Promise<CreateCommentDto> {
+        return this.developerService.create(createCommentDto,id);
     }
 
 }

@@ -1,13 +1,24 @@
+import { CommentDocument,Comment } from './../../Model/comment.schema';
 
 import { Injectable } from "@nestjs/common";
 import { CreateCommentDto } from "./dto/create.comment.dto";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from 'mongoose';
 
 
 
 @Injectable()
 export class CommentService{
-    create(createCommentDto: CreateCommentDto) {
-        return 'this is for create new developer';
+    constructor(@InjectModel(Comment.name)private readonly commentModel:Model<CommentDocument>){}
+    async create(createCommentDto: CreateCommentDto,id:string):Promise<CreateCommentDto> {
+        const {comment} = createCommentDto;
+
+        const data ={
+            comment,
+            devId: id
+        }
+        const commentData = this.commentModel.create(data);
+        return commentData;
     }
     //return all the developers
     findAll() {
