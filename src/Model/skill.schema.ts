@@ -6,9 +6,9 @@ export type SkillDocument = HydratedDocument<Skill>;
 
 @Schema()//
 export class Skill {
-    @Prop({required: true,unique: true})
-    name: string;
 
+    @Prop({required: true,unique: true})
+    name : string;
 
     @Prop({required: true})
     level: level;
@@ -26,3 +26,4 @@ export class Skill {
 
 
 export const SkillSchema = SchemaFactory.createForClass(Skill);
+// SkillSchema.index({ 'skills.name': 1 }, { unique: true }); // Create unique index for skills.name field

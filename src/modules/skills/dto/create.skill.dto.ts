@@ -5,6 +5,8 @@ export enum level{
     TWO=2,
     THREE=3
 }
+
+
 export class CreateSkillDto{
     @IsString()
     @IsNotEmpty()
@@ -12,6 +14,7 @@ export class CreateSkillDto{
 
     @IsEnum(level)
     level : number;
+
 }
 
 // skills = {
