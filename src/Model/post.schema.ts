@@ -15,12 +15,6 @@ export class Post {
     @Prop({required: true})
     description : string;
 
-    @Prop()
-    skills_id: string;
-
-    @Prop()
-    experience_id: string;
-
     
     @Prop({default : Date.now})
     createdAt: Date;

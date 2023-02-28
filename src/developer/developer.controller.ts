@@ -1,9 +1,10 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Res, ValidationPipe } from "@nestjs/common";
+
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Res, ValidationPipe } from "@nestjs/common";
 import { CreateDeveloperDto } from "./dto/create.developer.dto";
 import { DeveloperService } from "./developer.service";
 import { LoginDeveloperDto } from "./dto/login.developer.dto";
-import { create } from "domain";
-import { Response } from 'express';
+
+import { DeveloperDto } from './dto/developer.dto';
 
 @Controller('developer')
 export class DeveloperController {
@@ -11,27 +12,18 @@ export class DeveloperController {
     constructor(private readonly developerService : DeveloperService) {}
 
     @Post('/signup')
-    async signup(@Body(new ValidationPipe()) createDeveloperDto: CreateDeveloperDto,@Res() res): Promise<CreateDeveloperDto> {
+    async signup(@Body(new ValidationPipe()) createDeveloperDto: CreateDeveloperDto): Promise<CreateDeveloperDto> {
         try{
             return await this.developerService.signup(createDeveloperDto);
+           // return users.map((user) => user.toDto());
         }
         catch(err){
-            res.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION).json([
-                {
-                    statusCode: 500,
-                    message: [
-                        "User already exists",
-                    ],
-                    error: "NON_AUTHORITATIVE_INFORMATION"
-                }
-            ]);
+            throw new HttpException('user already exist', HttpStatus.NOT_FOUND);
         }
     }
 
-    
-    @Get('/login')
-    async login(@Body() loginDeveloperDto : LoginDeveloperDto): Promise<any>  {
-     return await this.developerService.login(loginDeveloperDto);
+    @Post('login')
+    async login(@Body() loginDeveloperDto: LoginDeveloperDto):Promise<any>{
+        return this.developerService.login(loginDeveloperDto);
     }
-
 }

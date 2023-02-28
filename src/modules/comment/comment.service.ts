@@ -4,12 +4,19 @@ import { Injectable } from "@nestjs/common";
 import { CreateCommentDto } from "./dto/create.comment.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
-
+import * as jwt from 'jsonwebtoken';
 
 
 @Injectable()
 export class CommentService{
     constructor(@InjectModel(Comment.name)private readonly commentModel:Model<CommentDocument>){}
+
+
+    async getUserIdFromAccessToken(accessToken:string):Promise<string>{
+        const decodeToken:any = jwt.verify(accessToken,'secret');
+        return decodeToken.id;
+    }
+
     async create(createCommentDto: CreateCommentDto,id:string):Promise<CreateCommentDto> {
         const {comment} = createCommentDto;
 

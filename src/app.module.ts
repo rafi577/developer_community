@@ -7,9 +7,11 @@ import { SkillModule } from './modules/skills/skill.module';
 import { CommentModule } from './modules/comment/comment.module';
 
 
+
 @Module({
 
   imports: [developerModule, postModule,ExperienceModule,SkillModule,CommentModule,
-    MongooseModule.forRoot('mongodb+srv://tanvir:tanvir@cluster0.r2x6tgi.mongodb.net/?retryWrites=true&w=majority',{dbName : 'Developer'})],
+    MongooseModule.forRoot('mongodb+srv://tanvir:tanvir@cluster0.r2x6tgi.mongodb.net/?retryWrites=true&w=majority',{dbName : 'Developer'}),
+    ],
 })
 export class AppModule {}

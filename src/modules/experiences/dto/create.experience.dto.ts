@@ -5,9 +5,13 @@ export class CreateExperienceDto {
     @IsNotEmpty()
     title : string;
 
-    @IsDate()
+    //@IsDate()
+    @IsString()
+    @IsNotEmpty()
     start_time : Date;
-    @IsDate()
+   // @IsDate()
+    @IsString()
+    @IsNotEmpty()
     end_time : Date;
 
     @IsString()

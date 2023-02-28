@@ -14,9 +14,10 @@ export class PostService {
 
 
     async getUserIdFromAccessToken(accessToken: string): Promise<string> {
-        const decodedToken: any = jwt.verify(accessToken, 'jwtConstants.secret');
+        const decodedToken: any = jwt.verify(accessToken, 'secret');
     
-        const userId: string = decodedToken.userId;
+        const userId: string = decodedToken.id;
+        // console.log(userId);
     
         return userId;
       }
@@ -33,10 +34,20 @@ export class PostService {
         const postData = await this.createPostModel.create(data);
         return postData.save();
     }
-    async getPost(id:string):Promise<GetPostDto[]>{
+    async getAllPost(id:string):Promise<GetPostDto[]>{
         const post =await this.createPostModel.find({id});
         if(post){
             return post;
         }
     }
+
+    // async verifyToken(token: string): Promise<any> {
+    //     try {
+    //         const decoded = jwt.verify(token, 'jwtConstants.secret');
+    //         return decoded;
+    //     } catch (err) {
+    //         throw new Error('Invalid token');
+    //     }
+    //   }
+    
 }

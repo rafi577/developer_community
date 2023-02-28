@@ -5,19 +5,24 @@ import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
+
 
 
 
 @Module({
     imports: [
-        PassportModule, 
+        PassportModule.register({defaultStrategy: 'jwt'}),
         JwtModule.register({
-          secret: 'jwtConstants.secret',
-          signOptions: { expiresIn: '3d'},
-        }), 
+        secret:'secret',
+        signOptions:{
+            expiresIn: '3d',
+        }
+        }),
         MongooseModule.forFeature([{ name: Developer.name, schema: DeveloperSchema }])
     ],
     controllers: [DeveloperController],
-    providers: [DeveloperService]
+    providers: [DeveloperService,JwtStrategy],
+    exports: [DeveloperService,PassportModule],
 })
 export class developerModule{}

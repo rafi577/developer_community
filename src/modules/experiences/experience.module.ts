@@ -3,10 +3,14 @@ import { Module } from "@nestjs/common";
 import { ExperienceController } from "./experience.controller";
 import { Experience, ExperienceSchema } from 'src/Model/experience.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { developerModule } from 'src/developer/developer.module';
 
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: Experience.name, schema: ExperienceSchema }])],
+    imports: [
+        developerModule,
+        MongooseModule.forFeature([{ name: Experience.name, schema: ExperienceSchema }])
+    ],
     controllers: [ExperienceController],
     providers: [ExperienceService]
 })
