@@ -24,7 +24,6 @@ export class CreateDeveloperDto{
         const { password, ...result } = this;
         return result;
     }
-
 }
 
 

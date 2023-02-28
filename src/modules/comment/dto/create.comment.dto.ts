@@ -5,6 +5,7 @@ export class CreateCommentDto {
     @IsString()
     @IsNotEmpty()
     comment: string;
+
 }
 
 

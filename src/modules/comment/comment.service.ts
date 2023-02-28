@@ -17,12 +17,13 @@ export class CommentService{
         return decodeToken.id;
     }
 
-    async create(createCommentDto: CreateCommentDto,id:string):Promise<CreateCommentDto> {
+    async create(createCommentDto: CreateCommentDto,devId:string,postId:string):Promise<CreateCommentDto> {
         const {comment} = createCommentDto;
 
         const data ={
             comment,
-            devId: id
+            devId,
+            postId
         }
         const commentData = this.commentModel.create(data);
         return commentData;

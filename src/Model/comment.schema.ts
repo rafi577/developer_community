@@ -9,10 +9,10 @@ export class Comment {
     comment: string;
   
     @Prop({required: true})
-    devId : string;
+    postId : string;
     
-    // @Prop({required: true})
-    // commenterId : string;
+    @Prop({required: true})
+    devId : string;
     
     @Prop({default : Date.now})
     createdAt: Date;
